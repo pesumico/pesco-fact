@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gensyn Fact Cards</title>
+<style>
+html,
+body {
+margin: 100px auto 0;
+height: 100%;
+background-color: #ffdad6;
+font-family: "Inter", "Segoe UI", Roboto, sans-serif;
+color: #3d3527;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+overflow-x: hidden;
+}
+
+header {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 15px;
+margin: 2rem 0 1rem 0;
+}
+
+header img {
+width: 70px;
+height: 70px;
+border-radius: 16px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+header img:hover {
+transform: scale(1.05);
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+text-align: center;
+font-size: 2rem;
+font-weight: 600;
+margin: 0;
+color: #2e271a;
+}
+
+#cardContainer {
+display: flex;
+gap: 24px;
+overflow-x: auto;
+padding: 40px;
+width: 90%;
+max-width: 1000px;
+scroll-snap-type: x mandatory;
+justify-content: flex-start;
+align-items: center;
+scroll-padding: 40px;
+box-sizing: border-box;
+}
+
+#cardContainer::-webkit-scrollbar {
+height: 8px;
+}
+
+#cardContainer::-webkit-scrollbar-thumb {
+background: #c7b9a6;
+border-radius: 10px;
+}
+
+.card {
+flex: 0 0 220px;
+height: 300px;
+perspective: 1000px;
+scroll-snap-align: center;
+border-radius: 16px;
+position: relative;
+cursor: pointer;
+transition: transform 0.4s ease;
+}
+
+.card:hover {
+transform: scale(1.05);
+}
+
+.cardInner {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+border-radius: 16px;
+transform-style: preserve-3d;
+transition: transform 0.8s;
+background: linear-gradient(145deg, #040300db, #0c0b09e1);
+box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1),
+inset 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+.card.flipped .cardInner {
+transform: rotateY(180deg);
+}
+
+.cardFront,
+.cardBack {
+position: absolute;
+width: 100%;
+height: 100%;
+backface-visibility: hidden;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+box-sizing: border-box;
+border-radius: 16px;
+text-align: center;
+}
+
+.cardFront {
+background: linear-gradient(145deg, #060201fb, #060201fb);
+color: #ffdad6;
+font-weight: 600;
+font-size: 1.2rem;
+letter-spacing: 0.5px;
+}
+
+.cardBack {
+background: #ffdad6;
+color: #040404;
+font-size: 1rem;
+font-weight: 500;
+transform: rotateY(180deg);
+border: 1px solid #d8ccb7;
+}
+
+@media (max-width: 768px) {
+html,
+body {
+height: 100vh;
+overflow-y: hidden;
+}
+
+header {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background: rgba(245, 240, 230, 0.95);
+padding: 15px 0;
+margin: 0;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+z-index: 1000;
+}
+
+header img {
+width: 50px;
+height: 50px;
+}
+
+h1 {
+font-size: 1.4rem;
+}
+
+#cardContainer {
+position: absolute;
+top: 100px;
+left: 0;
+right: 0;
+bottom: 0;
+flex-direction: row;
+justify-content: flex-start;
+overflow-x: auto;
+overflow-y: hidden;
+scroll-padding: 30px;
+padding: 20px 30px;
+background: linear-gradient(180deg, #f5f0e6, #ebe2d4);
+}
+
+.card {
+flex: 0 0 180px;
+height: 250px;
+}
+}
+</style>
+</head>
+<body>
+<header>
+<img src="gensyn.jpg" alt="Gensyn Logo" />
+<h1>Gensyn Fact Cards</h1>
+</header>
+
+<div id="cardContainer"></div>
+
+<script>
+const facts = [
+"Gensyn is a Layer-1 blockchain built specifically for machine learning compute, not just another DePIN or AI project.",
+"Its goal is to connect the world’s idle hardware (GPUs, CPUs, edge devices) into a global decentralized supercomputer for AI training.",
+"The core idea: Anyone can contribute compute power and earn rewards by helping train AI models.",
+"Gensyn’s training layer is called RL Swarm, a framework for collaborative reinforcement learning where models train, critique, and improve each other.",
+"In the swarm, every node is like an “ant”, small on its own but powerful together 🐜.",
+"The network uses cryptographic proofs to verify every compute step — meaning you can trust the results without trusting the provider.",
+"Gensyn’s verification framework is called Verde, which ensures that AI workloads are executed and proven correctly.",
+"The BlockAssist system manages blockchain coordination, verification logging, and task payments across the network.",
+"Gensyn supports popular ML frameworks like PyTorch, allowing developers to integrate existing AI workloads easily.",
+"Its testnet went live in March 2025, marking the world’s first public decentralized AI training network.",
+"Gensyn has already achieved over 500,000 models trained on the testnet; a major milestone in decentralized compute.",
+"The protocol’s reputation layer (called Reps/RePops) tracks node reliability, ensuring only high-quality contributors are rewarded.",
+"Gensyn’s coordination layer is built as a custom Ethereum rollup, offering scalability and instant micropayments for AI tasks.",
+"Every task, from training to verification is transparent, logged, and reproducible, bringing real accountability to AI training.",
+"Gensyn is pioneering the concept of “verifiable intelligence”, where AI outputs can be checked for authenticity and correctness.",
+"The project believes the future of AI is decentralized and fragmented, not locked inside a few corporate data centers.",
+"Gensyn’s community (often called GSwarm) plays a vital role in testing, feedback, and distributed participation.",
+"It combines AI + DePIN (Decentralized Physical Infrastructure Networks); turning physical hardware into programmable global compute.",
+"The Pioneer Program rewards contributors with roles like Rover, Navigator, and Pioneer based on activity and impact.",
+"Ultimately, Gensyn aims to democratize access to AI compute, making it verifiable, open, and owned by everyone, not just the few."
+];
+
+const container = document.getElementById("cardContainer");
+
+facts.forEach((fact, index) => {
+const card = document.createElement("div");
+card.classList.add("card");
+
+const inner = document.createElement("div");
+inner.classList.add("cardInner");
+
+const front = document.createElement("div");
+front.classList.add("cardFront");
+front.textContent = "Fact " + (index + 1);
+
+const back = document.createElement("div");
+back.classList.add("cardBack");
+back.textContent = fact;
+
+inner.appendChild(front);
+inner.appendChild(back);
+card.appendChild(inner);
+
+card.addEventListener("click", () => {
+card.classList.toggle("flipped");
+});
+
+container.appendChild(card);
+});
+
+function adjustPadding() {
+const firstCard = container.querySelector(".card");
+if (!firstCard) return;
+const cardWidth = firstCard.offsetWidth;
+const screenWidth = window.innerWidth;
+const sidePad = Math.max(40, (screenWidth - cardWidth) / 2);
+container.style.paddingLeft = `${sidePad}px`;
+container.style.paddingRight = `${sidePad}px`;
+}
+
+window.addEventListener("load", adjustPadding);
+window.addEventListener("resize", adjustPadding);
+</script>
+</body>
+</html>
